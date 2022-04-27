@@ -30,6 +30,10 @@ dependencies {
 	implementation("org.apache.poi:poi:4.1.2")
 	// Apache POI creating xlsx file
 	implementation("org.apache.poi:poi-ooxml:4.1.2")
+	// Swagger
+	implementation("org.springdoc:springdoc-openapi-data-rest:1.6.0")
+	implementation("org.springdoc:springdoc-openapi-ui:1.6.0")
+	implementation("org.springdoc:springdoc-openapi-kotlin:1.6.0")
 }
 
 tasks.withType<KotlinCompile> {

@@ -13,6 +13,10 @@ https://mieumje.tistory.com/71
 
 // rest api
 https://pearlluck.tistory.com/m/700
+https://hororolol.tistory.com/564
+
+// post json
+https://goateedev.tistory.com/268
 
 // apache poi
 https://linuxtut.com/apache-poi-excel-in-kotlin-e8928/
