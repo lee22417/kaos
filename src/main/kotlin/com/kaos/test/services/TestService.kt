@@ -1,4 +1,4 @@
-package com.kaos.services
+package com.kaos.test.services
 
 import org.springframework.stereotype.Service
 

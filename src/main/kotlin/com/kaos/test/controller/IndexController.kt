@@ -1,4 +1,4 @@
-package com.kaos.controller
+package com.kaos.test.controller
 
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
