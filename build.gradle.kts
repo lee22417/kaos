@@ -26,6 +26,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	// Apache POI
+	implementation("org.apache.poi:poi:4.1.2")
+	// Apache POI creating xlsx file
+	implementation("org.apache.poi:poi-ooxml:4.1.2")
 }
 
 tasks.withType<KotlinCompile> {
