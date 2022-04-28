@@ -83,24 +83,7 @@ data class ExcelInputDto (
     }
 }
 
-// sheet information
-data class SheetDto (
-    val name: String, // sheet name
-    val isRowTitle: Boolean, // whether title is in row or col
-    val data: HashMap<String, Array<String>>, // data written in excel file
-    val arrangeOption: SheetArrangeDto?, // sheet table arrange option
-    val decorationOption: SheetDecorationDto? // data decoration option
-)
 
-// sheet data table arrange
-data class SheetArrangeDto (
-    val leftGap: Int?, // empty cell on the left table
-    val upGap: Int?, // empty cell above table
-)
 
-// sheet data decoration
-data class SheetDecorationDto (
-    val titleColor: String?, //
-    val borderSize: Int?,
-    val borderColor: String?,
-)
+
+
