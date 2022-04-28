@@ -1,5 +1,6 @@
 package com.kaos.excel.services
 
+import com.kaos.excel.dto.SheetDto
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.stereotype.Service
@@ -8,23 +9,20 @@ import java.io.FileOutputStream
 @Service
 class ExcelGenerater(private val componentMaker: ExcelComponentMaker) {
     // generate report
-    public fun generateReport(filePath: String, data: HashMap<String,String>, isRowTitle: Boolean) {
+    public fun generateReport(filePath: String, sheetDto: Array<SheetDto>) {
         // create report
-        val report = createReport(data, isRowTitle)
+        val report = createReport(sheetDto)
         // save report in file path
         saveReport(filePath, report)
     }
 
     // create new excel file
-    fun createReport(data: HashMap<String,String>, isRowTitle: Boolean): XSSFWorkbook {
+    fun createReport(sheetDto: Array<SheetDto>): XSSFWorkbook {
         // create XSSF Workbook
         val workBook = XSSFWorkbook()
-        // create excel sheet with data written in file - isRowTitle = true
-        if(isRowTitle == true) {
-            val sheet = componentMaker.RowTitleCompomentMaker(workBook.createSheet(), data)
-        }else {
-            val sheet = componentMaker.ColTitleCompomentMaker(workBook.createSheet(), data)
-        }
+        // create sheets
+        sheetDto.map { sheetInfo -> createSheet(workBook, sheetInfo) }
+        // return workbook
         return workBook
     }
 
@@ -37,4 +35,25 @@ class ExcelGenerater(private val componentMaker: ExcelComponentMaker) {
         // close
         fileOutputStream.close()
     }
+
+
+    // create Sheet in excel file
+    fun createSheet(workBook: XSSFWorkbook, sheetInfo: SheetDto) {
+        // sheet name
+        val name = sheetInfo.name
+        // decide whether title is in row or col
+        val isRowTitle = sheetInfo.isRowTitle
+        // data in excel sheet
+        val data = sheetInfo.data
+
+        // create sheet with name
+        val sheet = workBook.createSheet(name)
+        // create excel sheet with data written in file - isRowTitle = true
+        if(isRowTitle) {
+            val sheet = componentMaker.RowTitleCompomentMaker(sheet, data)
+        }else {
+            val sheet = componentMaker.ColTitleCompomentMaker(sheet, data)
+        }
+    }
 }
+
