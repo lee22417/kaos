@@ -6,29 +6,35 @@ import org.springframework.stereotype.Service
 import java.io.FileOutputStream
 
 @Service
-class ExcelGenerater {
+class ExcelGenerater(private val componentMaker: ExcelComponentMaker) {
     // generate report
-    public fun generateReport(fileName: String) {
+    public fun generateReport(filePath: String, data: HashMap<String,String>, isRowTitle: Boolean) {
         // create report
-        val report = createReport()
-        // save report
-        saveReport(fileName, report)
+        val report = createReport(data, isRowTitle)
+        // save report in file path
+        saveReport(filePath, report)
     }
 
-    // create new report
-    fun createReport(): XSSFWorkbook {
+    // create new excel file
+    fun createReport(data: HashMap<String,String>, isRowTitle: Boolean): XSSFWorkbook {
         // create XSSF Workbook
         val workBook = XSSFWorkbook()
-        // create excel sheet
-        val sheet = workBook.createSheet()
+        // create excel sheet with data written in file - isRowTitle = true
+        if(isRowTitle == true) {
+            val sheet = componentMaker.RowTitleCompomentMaker(workBook.createSheet(), data)
+        }else {
+            val sheet = componentMaker.ColTitleCompomentMaker(workBook.createSheet(), data)
+        }
         return workBook
     }
 
-    // save created Report
-    fun saveReport(fileName: String, workBook: Workbook){
-        System.out.println(fileName)
-        val fileOutputStream = FileOutputStream(fileName)
+    // save created excel file
+    fun saveReport(filePath: String, workBook: Workbook){
+        // set file path
+        val fileOutputStream = FileOutputStream(filePath)
+        // create excel file
         workBook.write(fileOutputStream)
+        // close
         fileOutputStream.close()
     }
 }
