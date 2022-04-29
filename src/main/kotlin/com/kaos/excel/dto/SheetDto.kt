@@ -5,6 +5,7 @@ data class SheetDto (
     val name: String, // sheet name
     val isRowTitle: Boolean, // whether title is in row or col
     val data: HashMap<String, Array<String>>, // data written in excel file
+    val titleOption: SheetTitleDto?, // sheet table title option
     val arrangeOption: SheetArrangeDto?, // sheet table arrange option
     val decorationOption: SheetDecorationDto? // data decoration option
 )

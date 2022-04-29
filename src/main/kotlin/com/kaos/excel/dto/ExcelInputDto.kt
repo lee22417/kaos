@@ -7,7 +7,7 @@ package com.kaos.excel.dto
     "sheet": [
         {
             "name": "fruit",
-            "isRowTitle": false,
+            "isRowTitle": true,
             "data": {
                 "fruit": [
                     "apple",
@@ -25,12 +25,18 @@ package com.kaos.excel.dto
                     500
                 ]
             },
+            "titleOption": {
+                "fontColor": "993366",
+                "fontSize": 20,
+                "bold": true,
+                "italic": true,
+                "backgroundColor": "AAAAFF"
+            },
             "arrangeOption": {
                 "leftGap": 1,
                 "upGap": 3
             },
             "decorationOption": {
-                "titleColor": "blue",
                 "borderColor": "red"
             }
         },
@@ -38,7 +44,7 @@ package com.kaos.excel.dto
             "name": "drink",
             "isRowTitle": true,
             "data": {
-                "fruit": [
+                "drink": [
                     "water",
                     "juice",
                     "sprit"
