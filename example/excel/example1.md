@@ -1,4 +1,4 @@
-# Eexcel Example
+# Eexcel Example1
 
 API
 
@@ -36,4 +36,4 @@ API
 
 - result reference
 
-  `grocery_stock.xlsx`
+  `example1_grocery_stock.xlsx`
