@@ -8,7 +8,7 @@ import java.io.FileOutputStream
 
 @Service
 class ExcelGenerater(private val componentMaker: ExcelComponentMaker) {
-    // generate report
+    // generate file
     public fun generateReport(filePath: String, sheetDto: Array<SheetDto>) {
         // create report
         val report = createReport(sheetDto)
@@ -16,7 +16,7 @@ class ExcelGenerater(private val componentMaker: ExcelComponentMaker) {
         saveReport(filePath, report)
     }
 
-    // create new excel file
+    // create new file
     fun createReport(sheetDto: Array<SheetDto>): XSSFWorkbook {
         // create XSSF Workbook
         val workBook = XSSFWorkbook()
@@ -26,7 +26,7 @@ class ExcelGenerater(private val componentMaker: ExcelComponentMaker) {
         return workBook
     }
 
-    // save created excel file
+    // save created file
     fun saveReport(filePath: String, workBook: Workbook){
         // set file path
         val fileOutputStream = FileOutputStream(filePath)
@@ -37,22 +37,27 @@ class ExcelGenerater(private val componentMaker: ExcelComponentMaker) {
     }
 
 
-    // create Sheet in excel file
+    // create Sheet in file
     fun createSheet(workBook: XSSFWorkbook, sheetInfo: SheetDto) {
         // sheet name
         val name = sheetInfo.name
         // decide whether title is in row or col
         val isRowTitle = sheetInfo.isRowTitle
-        // data in excel sheet
+        // data in sheet
         val data = sheetInfo.data
+
+        // options in sheet
+        val titleOption = sheetInfo.titleOption
+        val arrangeOption = sheetInfo.arrangeOption
+        val decorationOption = sheetInfo.decorationOption
 
         // create sheet with name
         val sheet = workBook.createSheet(name)
-        // create excel sheet with data written in file - isRowTitle = true
+        // create sheet with data written in file
         if(isRowTitle) {
-            val sheet = componentMaker.RowTitleCompomentMaker(sheet, data)
+            val sheet = componentMaker.RowTitleCompomentMaker(workBook, sheet, data, titleOption)
         }else {
-            val sheet = componentMaker.ColTitleCompomentMaker(sheet, data)
+            val sheet = componentMaker.ColTitleCompomentMaker(workBook, sheet, data, titleOption)
         }
     }
 }
