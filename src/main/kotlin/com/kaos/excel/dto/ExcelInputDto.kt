@@ -30,14 +30,16 @@ package com.kaos.excel.dto
                 "fontSize": 20,
                 "bold": true,
                 "italic": true,
-                "backgroundColor": "AAAAFF"
+                "backgroundColor": "AAAAFF",
+                "setBorder": true //TODO
             },
             "arrangeOption": {
-                "leftGap": 1,
-                "upGap": 3
+                "leftGap": 1, //TODO
+                "upGap": 3  //TODO
             },
             "decorationOption": {
-                "borderColor": "red"
+                "borderColor": "red", //TODO
+                "borderSize": 5 //TODO
             }
         },
         {

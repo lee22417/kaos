@@ -8,25 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+
 /*
-Request Example
-
-{
-    "fileName":"fruit_number",
-    "sheet":[
-        {
-            "name":"sheet1",
-            "isRowTitle":true,
-            "data":{
-                "fruit":["apple","orange","strawberry"],
-                "stock":[2007,101,4899],
-                "price":[1000,1500,500]
-            }
-        }
-    ]
-}
-
+    Request Example : kaos/example/excel
  */
+
 @RestController
 @RequestMapping("/excel")
 class ExcelController (
