@@ -7,7 +7,7 @@ package com.kaos.excel.dto
     "sheet": [
         {
             "name": "fruit",
-            "isRowTitle": false,
+            "isRowTitle": true,
             "data": {
                 "fruit": [
                     "apple",
@@ -25,12 +25,18 @@ package com.kaos.excel.dto
                     500
                 ]
             },
+            "titleOption": {
+                "fontColor": "993366",
+                "fontSize": 20,
+                "bold": true,
+                "italic": true,
+                "backgroundColor": "AAAAFF"
+            },
             "arrangeOption": {
                 "leftGap": 1,
                 "upGap": 3
             },
             "decorationOption": {
-                "titleColor": "blue",
                 "borderColor": "red"
             }
         },
@@ -38,7 +44,7 @@ package com.kaos.excel.dto
             "name": "drink",
             "isRowTitle": true,
             "data": {
-                "fruit": [
+                "drink": [
                     "water",
                     "juice",
                     "sprit"
@@ -83,24 +89,7 @@ data class ExcelInputDto (
     }
 }
 
-// sheet information
-data class SheetDto (
-    val name: String, // sheet name
-    val isRowTitle: Boolean, // whether title is in row or col
-    val data: HashMap<String, Array<String>>, // data written in excel file
-    val arrangeOption: SheetArrangeDto?, // sheet table arrange option
-    val decorationOption: SheetDecorationDto? // data decoration option
-)
 
-// sheet data table arrange
-data class SheetArrangeDto (
-    val leftGap: Int?, // empty cell on the left table
-    val upGap: Int?, // empty cell above table
-)
 
-// sheet data decoration
-data class SheetDecorationDto (
-    val titleColor: String?, //
-    val borderSize: Int?,
-    val borderColor: String?,
-)
+
+

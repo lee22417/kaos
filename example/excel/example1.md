@@ -1,4 +1,4 @@
-# Eexcel Example
+# Eexcel Example1
 
 API
 
@@ -10,13 +10,13 @@ API
 
   ```
   {
-    "fileName":"grocery_stock", 
+    "fileName":"grocery_stock",
     "sheet":[
         {
             "name":"fruit",
             "isRowTitle":false,
             "data":{
-                "fruit":["apple","orange","strawberry"], 
+                "fruit":["apple","orange","strawberry"],
                 "stock":[2007,101,4899],
                 "price":[1000,1500,500]
             }
@@ -25,16 +25,15 @@ API
             "name":"drink",
             "isRowTitle":true,
             "data":{
-                "fruit":["water","juice","sprit"], 
+                "fruit":["water","juice","sprit"],
                 "stock":[2007,101,4899],
                 "price":[1000,1500,500]
             }
         }
     ]
-}
-
+  }
   ```
 
 - result reference
 
-  `grocery_stock.xlsx`
+  `example1_grocery_stock.xlsx`
