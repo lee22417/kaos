@@ -14,7 +14,7 @@ API
     "sheet": [
         {
             "name": "fruit",
-            "isRowTitle": true,
+            "isRowTitle": false,
             "data": {
                 "fruit": [
                     "apple",
