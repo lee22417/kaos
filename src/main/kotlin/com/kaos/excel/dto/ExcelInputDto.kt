@@ -34,8 +34,8 @@ package com.kaos.excel.dto
                 "setBorder": true //TODO
             },
             "arrangeOption": {
-                "leftGap": 1, //TODO
-                "upGap": 3  //TODO
+                "leftGap": 1,
+                "topGap": 3
             },
             "decorationOption": {
                 "borderColor": "red", //TODO

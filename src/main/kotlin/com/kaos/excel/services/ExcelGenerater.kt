@@ -55,9 +55,9 @@ class ExcelGenerater(private val componentMaker: ExcelComponentMaker) {
         val sheet = workBook.createSheet(name)
         // create sheet with data written in file
         if(isRowTitle) {
-            val sheet = componentMaker.RowTitleCompomentMaker(workBook, sheet, data, titleOption)
+            val sheet = componentMaker.RowTitleCompomentMaker(workBook, sheet, data, titleOption, arrangeOption)
         }else {
-            val sheet = componentMaker.ColTitleCompomentMaker(workBook, sheet, data, titleOption)
+            val sheet = componentMaker.ColTitleCompomentMaker(workBook, sheet, data, titleOption, arrangeOption)
         }
     }
 }
