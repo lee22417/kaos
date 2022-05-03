@@ -4,15 +4,12 @@ import com.kaos.excel.dto.SheetArrangeDto
 import com.kaos.excel.dto.SheetBorderDto
 import com.kaos.excel.dto.SheetTitleDto
 import org.apache.poi.ss.usermodel.*
-import org.apache.poi.ss.util.CellRangeAddress
-import org.apache.poi.ss.util.PropertyTemplate
-import org.apache.poi.xssf.usermodel.XSSFSheet
-import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.apache.poi.xssf.usermodel.XSSFRichTextString
 import org.springframework.stereotype.Service
 
 @Service
 class ExcelComponentMaker (
-    private val compoentVisualizar: ExcelCompoentVisualizar
+    private val componetVisualizar: ExcelCompoentVisualizar
     ) {
 
     // tiable with title in row
@@ -34,10 +31,12 @@ class ExcelComponentMaker (
                 k,v ->
             // write title (key)
             val titleCell = titleRow.createCell(directionIdx)
-            titleCell.setCellValue(k)
+
             // apply title option
             if (titleOption != null) {
-                applyTitleOption(workBook, titleCell, titleOption)
+                applyTitleOption(workBook, sheet, titleCell, k, titleOption)
+            } else {
+                titleCell.setCellValue(k)
             }
 
             // write values
@@ -61,11 +60,13 @@ class ExcelComponentMaker (
         }
 
         // column auto size
-        compoentVisualizar.setAutoSizeColumn(sheet, titleColIdx, directionIdx - 1)
+        componetVisualizar.setAutoSizeColumn(sheet, titleColIdx, directionIdx - 1)
 
         // apply border option
         if(borderOption != null) {
-            applyBorderOption(sheet, titleRowIdx + 1, titleRowIdx + rowIdxSize, titleColIdx, directionIdx - 1, borderOption)
+            applyBorderOption(
+                sheet, titleRowIdx + 1, titleRowIdx + rowIdxSize, titleColIdx, directionIdx - 1, borderOption
+            )
         }
         return sheet
     }
@@ -88,12 +89,15 @@ class ExcelComponentMaker (
             k,v ->
             // specify row
             val row = sheet.createRow(directionIdx)
-            // write title (key)
+
+            // create title cell
             val titleCell = row.createCell(titleColIdx)
-            titleCell.setCellValue(k)
-            // apply title option
             if (titleOption != null) {
-                applyTitleOption(workBook, titleCell, titleOption)
+                // write title (key) and apply option
+                applyTitleOption(workBook, sheet, titleCell, k, titleOption)
+            } else {
+                // write title (key)
+                titleCell.setCellValue(k)
             }
 
             // write values
@@ -110,32 +114,42 @@ class ExcelComponentMaker (
         }
 
         // column auto size
-        compoentVisualizar.setAutoSizeColumn(sheet, titleColIdx, directionIdx - 1)
+        componetVisualizar.setAutoSizeColumn(sheet, titleColIdx, directionIdx - 1)
 
         // apply border option
         if(borderOption != null) {
-            applyBorderOption(sheet, titleRowIdx, directionIdx - 1, titleColIdx + 1, titleColIdx + colIdxSize, borderOption)
+            applyBorderOption(
+                sheet, titleRowIdx, directionIdx - 1, titleColIdx + 1, titleColIdx + colIdxSize, borderOption
+            )
+
         }
 
         return sheet
     }
 
-    fun applyTitleOption(workBook: Workbook, cell: Cell, titleOption: SheetTitleDto){
-        // set cell style depends on titleOption
-        val cellStyle = compoentVisualizar.setTitleCellStyle(workBook, titleOption)
-
+    fun applyTitleOption(workBook: Workbook, sheet: Sheet, cell: Cell, text: String, titleOption: SheetTitleDto){
         // set font depends on titleOption
-        val font = compoentVisualizar.setTitleFont(workBook, titleOption)
+        val font = componetVisualizar.setTitleFont(workBook, titleOption)
+        // write text
+        val rt = XSSFRichTextString(text)
+        // set font
+        rt.applyFont(font)
+        // set text in cell
+        cell.setCellValue(rt)
+
+        // set cell style depends on titleOption
+        val cellStyle = componetVisualizar.setTitleCellStyle(workBook, titleOption)
         // set font into style
         cellStyle.setFont(font)
-
         // set cell style
         cell.cellStyle = cellStyle
     }
 
-    fun applyBorderOption (sheet: Sheet, firstRow: Int, lastRow: Int, firstCol: Int, lastCol: Int, borderOption: SheetBorderDto){
-        compoentVisualizar.setPropertyTemplates(sheet, firstRow, lastRow, firstCol, lastCol, borderOption)
+    // apply border option
+    fun applyBorderOption (
+        sheet: Sheet, firstRow: Int, lastRow: Int, firstCol: Int, lastCol: Int, borderOption: SheetBorderDto
+    ){
+        // apply border
+        componetVisualizar.setBorderPropertyTemplates(sheet, firstRow, lastRow, firstCol, lastCol, borderOption)
     }
-
-
 }

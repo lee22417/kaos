@@ -9,8 +9,8 @@ import org.apache.poi.ss.util.PropertyTemplate
 import org.apache.poi.xssf.usermodel.XSSFCellStyle
 import org.apache.poi.xssf.usermodel.XSSFColor
 import org.apache.poi.xssf.usermodel.XSSFFont
-import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.stereotype.Service
+import java.awt.Color
 
 @Service
 class ExcelCompoentVisualizar {
@@ -26,10 +26,12 @@ class ExcelCompoentVisualizar {
             font.fontHeightInPoints = titleOption.fontSize.toShort()
         }
         // shape :TODO - not working (Mac)
-        if(titleOption.italic != null) {
-            font.italic = titleOption.italic
-        }else if(titleOption.bold != null) {
-            font.bold = titleOption.bold
+        if(titleOption.italic == true) {
+            font.italic = true
+        }
+        // bold :TODO - not working (Mac)
+        if(titleOption.bold == true) {
+            font.bold = true
         }
         return font
     }
@@ -49,14 +51,20 @@ class ExcelCompoentVisualizar {
     }
 
     // set table border
-    fun setPropertyTemplates(sheet: Sheet, firstRow: Int, lastRow: Int, firstCol: Int, lastCol: Int, borderOption: SheetBorderDto) {
+    fun setBorderPropertyTemplates(
+        sheet: Sheet, firstRow: Int, lastRow: Int, firstCol: Int, lastCol: Int, borderOption: SheetBorderDto
+    ) {
         var pt: PropertyTemplate = PropertyTemplate()
+        // set border color
+        var insideColor = getColorIndex(borderOption.insideColor)
+        var outSideColor = getColorIndex(borderOption.outsideColor)
 
         // inside border
         if(borderOption.inside == true) {
             pt.drawBorders(
                 CellRangeAddress(firstRow, lastRow, firstCol, lastCol),
                 BorderStyle.THIN,
+                insideColor,
                 BorderExtent.INSIDE
             )
         }
@@ -65,7 +73,8 @@ class ExcelCompoentVisualizar {
         if(borderOption.outside == true) {
             pt.drawBorders(
                 CellRangeAddress(firstRow, lastRow, firstCol, lastCol),
-                BorderStyle.MEDIUM,
+                BorderStyle.THIN,
+                outSideColor,
                 BorderExtent.OUTSIDE
             )
         }
@@ -78,6 +87,23 @@ class ExcelCompoentVisualizar {
     fun setAutoSizeColumn(sheet: Sheet, firstCol: Int, lastCol: Int) {
         for (colNum in firstCol until lastCol) {
             sheet.autoSizeColumn(colNum)
+        }
+    }
+
+    // get color index
+    fun getColorIndex(color: String?): Short {
+        return when (color) {
+            "red" -> IndexedColors.RED.index
+            "blue" -> IndexedColors.BLUE.index
+            "brown" -> IndexedColors.BROWN.index
+            "green" -> IndexedColors.GREEN.index
+            "yellow" -> IndexedColors.YELLOW.index
+            "violet" -> IndexedColors.VIOLET.index
+            "coral" -> IndexedColors.CORAL.index
+            "lavender" -> IndexedColors.LAVENDER.index
+            "sky_blue" -> IndexedColors.SKY_BLUE.index
+            "indigo" -> IndexedColors.INDIGO.index
+            else -> IndexedColors.BLACK.index
         }
     }
 }

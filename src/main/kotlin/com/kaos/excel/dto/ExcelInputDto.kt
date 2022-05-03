@@ -26,20 +26,21 @@ package com.kaos.excel.dto
                 ]
             },
             "titleOption": {
-                "fontColor": "993366",
+                "fontColor": "996633",
                 "fontSize": 20,
                 "bold": true,
                 "italic": true,
-                "backgroundColor": "AAAAFF",
+                "backgroundColor": "EEDDFF"
             },
             "arrangeOption": {
                 "leftGap": 1,
                 "topGap": 3
             },
             "borderOption": {
-                "borderColor": "red", //TODO
                 "inside" : true,
-                "outside" : true
+                "insideColor" : "coral",
+                "outside" : true,
+                "outsideColor" : "violet"
             }
         },
         {
