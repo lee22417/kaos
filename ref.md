@@ -30,3 +30,6 @@ https://www.baeldung.com/kotlin/swagger-spring-rest-api
 
 // syntax
 https://play.kotlinlang.org/byExample/05_Collections/03_Map
+
+// issue
+https://stackoverflow.com/questions/44680502/poi-xssfcellstyle-drawing-borders-with-propertytemplate-when-cell-setfillforegr
