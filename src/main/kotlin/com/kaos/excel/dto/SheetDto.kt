@@ -7,5 +7,5 @@ data class SheetDto (
     val data: HashMap<String, Array<String>>, // data written in excel file
     val titleOption: SheetTitleDto?, // sheet table title option
     val arrangeOption: SheetArrangeDto?, // sheet table arrange option
-    val decorationOption: SheetDecorationDto? // data decoration option
+    val borderOption: SheetBorderDto? // data decoration option
 )

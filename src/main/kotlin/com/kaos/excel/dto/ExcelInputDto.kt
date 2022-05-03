@@ -31,15 +31,15 @@ package com.kaos.excel.dto
                 "bold": true,
                 "italic": true,
                 "backgroundColor": "AAAAFF",
-                "setBorder": true //TODO
             },
             "arrangeOption": {
                 "leftGap": 1,
                 "topGap": 3
             },
-            "decorationOption": {
+            "borderOption": {
                 "borderColor": "red", //TODO
-                "borderSize": 5 //TODO
+                "inside" : true,
+                "outside" : true
             }
         },
         {

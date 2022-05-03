@@ -1,8 +1,11 @@
 package com.kaos.excel.services
 
+import com.kaos.excel.dto.SheetBorderDto
 import com.kaos.excel.dto.SheetTitleDto
 import org.apache.commons.codec.binary.Hex
-import org.apache.poi.ss.usermodel.FillPatternType
+import org.apache.poi.ss.usermodel.*
+import org.apache.poi.ss.util.CellRangeAddress
+import org.apache.poi.ss.util.PropertyTemplate
 import org.apache.poi.xssf.usermodel.XSSFCellStyle
 import org.apache.poi.xssf.usermodel.XSSFColor
 import org.apache.poi.xssf.usermodel.XSSFFont
@@ -11,8 +14,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class ExcelCompoentVisualizar {
-    fun setTitleFont(workBook: XSSFWorkbook, titleOption: SheetTitleDto): XSSFFont  {
-        val font: XSSFFont = workBook.createFont()
+    fun setTitleFont(workBook: Workbook, titleOption: SheetTitleDto): XSSFFont  {
+        val font: XSSFFont = workBook.createFont() as XSSFFont
 
         // font color
         if(titleOption.fontColor != null) {
@@ -31,17 +34,50 @@ class ExcelCompoentVisualizar {
         return font
     }
 
-    fun setTitleCellStyle(workBook: XSSFWorkbook, titleOption: SheetTitleDto): XSSFCellStyle {
-        val cellStyle: XSSFCellStyle = workBook.createCellStyle()
+    // set title cell style
+    fun setTitleCellStyle(workBook: Workbook, titleOption: SheetTitleDto): CellStyle {
+        val cellStyle = workBook.createCellStyle() as XSSFCellStyle
 
         // background color
         if(titleOption.backgroundColor != null) {
-            // set background pattern
-            cellStyle.fillPattern = FillPatternType.SOLID_FOREGROUND
             // set color
             cellStyle.setFillForegroundColor(XSSFColor(Hex.decodeHex(titleOption.backgroundColor), null))
+            // set background pattern
+            cellStyle.fillPattern = FillPatternType.SOLID_FOREGROUND
+        }
+        return cellStyle
+    }
+
+    // set table border
+    fun setPropertyTemplates(sheet: Sheet, firstRow: Int, lastRow: Int, firstCol: Int, lastCol: Int, borderOption: SheetBorderDto) {
+        var pt: PropertyTemplate = PropertyTemplate()
+
+        // inside border
+        if(borderOption.inside == true) {
+            pt.drawBorders(
+                CellRangeAddress(firstRow, lastRow, firstCol, lastCol),
+                BorderStyle.THIN,
+                BorderExtent.INSIDE
+            )
         }
 
-        return cellStyle
+        // outside border
+        if(borderOption.outside == true) {
+            pt.drawBorders(
+                CellRangeAddress(firstRow, lastRow, firstCol, lastCol),
+                BorderStyle.MEDIUM,
+                BorderExtent.OUTSIDE
+            )
+        }
+
+        // apply border
+        pt.applyBorders(sheet)
+    }
+
+    // set column width
+    fun setAutoSizeColumn(sheet: Sheet, firstCol: Int, lastCol: Int) {
+        for (colNum in firstCol until lastCol) {
+            sheet.autoSizeColumn(colNum)
+        }
     }
 }
