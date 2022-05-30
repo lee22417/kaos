@@ -3,7 +3,7 @@
 Excel File Creator
 
 - Apache POI 
-- see /example/excel
+- see /example/excel (https://github.com/lee22417/kaos/tree/main/example/excel)
 
 
 
