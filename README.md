@@ -1,6 +1,6 @@
 # kaos
 
-Excel report creator
+Excel File Creator
 
 - Apache POI 
 - see /example/excel
